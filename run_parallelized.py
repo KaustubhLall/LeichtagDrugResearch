@@ -14,7 +14,7 @@ import pandas as pd
 # from keras.layers import Dense, Dropout, BatchNormalization, Activation
 # from keras.models import Sequential
 # from keras.regularizers import l2
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 from pandas import DataFrame
 from scipy.stats import pearsonr
 from sklearn.ensemble import RandomForestClassifier
@@ -347,8 +347,8 @@ def async_loo(pattern, data, labels, log, f):
     s = '%s,%s,'
     s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
     s += '\n'
-    print(s, file=log)
-    f.write(s)
+    # print(s, file=log)
+    # f.write(s)
 
     return s
 
@@ -365,8 +365,8 @@ def async_xval(pattern, data, labels, log, f):
     s = '%s,%s,'
     s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
     s += '\n'
-    print(s, file=log)
-    f.write(s)
+    # print(s, file=log)
+    # f.write(s)
 
     return s
 
@@ -392,7 +392,8 @@ def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_h
         pool = ThreadPool(n_thread)
         res = pool.map(async_loo, seq, **kwargs)
 
-        open('test', 'wa').write(res)
+        log.write(res)
+        f.write(res)
 
         # for multiprocessing
         # pool = Pool()
@@ -426,7 +427,10 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         }
 
         pool = ThreadPool(num_threads=n_thread)
-        pool.map(async_xval, seq, **kwargs)
+        res = pool.map(async_xval, seq, **kwargs)
+
+        log.write(res)
+        f.write(res)
 
 
 if __name__ == '__main__':

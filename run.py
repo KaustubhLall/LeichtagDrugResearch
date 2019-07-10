@@ -9,7 +9,7 @@ import pandas as pd
 # from keras.layers import Dense, Dropout, BatchNormalization, Activation
 # from keras.models import Sequential
 # from keras.regularizers import l2
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 from pandas import DataFrame
 from scipy.stats import pearsonr
 from sklearn.ensemble import RandomForestClassifier
@@ -296,6 +296,7 @@ def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_h
         # for every possibly n choose k combinations
         seq = combinations(list(range(total_features)), k)
 
+        buf = ''
         # test the pattern of classifiers
         for pattern in tqdm(seq, total=nck(total_features, k), desc='Running Small Dataset'):
             # get a subset of the data
@@ -309,8 +310,13 @@ def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_h
             s = '%s,%s,'
             s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
             s += '\n'
-            print(s, file=log)
-            f.write(s)
+            # print(s, file=log)
+            # f.write(s)
+
+            buf += s
+
+        log.write(buf)
+        f.write(buf)
 
 
 def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xval', pref=''):
@@ -323,6 +329,7 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         # for every possible n choose k combinations
         seq = combinations(list(range(total_features)), k)
 
+        buf = ''
         for pattern in tqdm(seq, total=nck(total_features, k), desc='Running Big Dataset'):
             # get a subset of the data
             sub_data = data[:, pattern]
@@ -335,9 +342,13 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
             s = '%s,%s,'
             s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
             s += '\n'
-            print(s, file=log)
-            f.write(s)
+            # print(s, file=log)
+            # f.write(s)
 
+            buf += s
+
+        log.write(buf)
+        f.write(buf)
 
 # run small dataset
 X, Y, header = load_dataset('small', scale=False)
