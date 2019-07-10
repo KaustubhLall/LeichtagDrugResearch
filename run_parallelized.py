@@ -40,13 +40,14 @@ class Worker(Thread):
         while True:
             func, args, kargs = self.tasks.get()
             try:
-                func(*args, **kargs)
+                ret = func(*args, **kargs)
             except Exception as e:
                 # An exception happened in this thread
                 print(e)
             finally:
                 # Mark this task as done, whether an exception happened or not
                 self.tasks.task_done()
+            return ret
 
 
 class ThreadPool:

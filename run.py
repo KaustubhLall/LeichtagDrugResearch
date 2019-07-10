@@ -99,6 +99,7 @@ def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
 
     return clf, train_acc
 
+
 #
 # def train_nn(X, Y, testX, testY, n_outputs=2, n_epochs=32, lr=1e-4, plot=True):
 #     # change labels to one hot encoding
@@ -294,11 +295,11 @@ def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_h
         f = open(pref + 'hoo_res%d' % k, 'w')
 
         # for every possibly n choose k combinations
-        seq = combinations(list(range(total_features)), k)
+        seq = list(combinations(list(range(total_features)), k))
 
         buf = ''
         # test the pattern of classifiers
-        for pattern in tqdm(seq, total=nck(total_features, k), desc='Running Small Dataset'):
+        for pattern in tqdm(seq, desc='Running Small Dataset'):
             # get a subset of the data
             sub_data = data[:, pattern]
 
@@ -327,10 +328,10 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         f = open(pref + 'xval_res%d' % k, 'w')
 
         # for every possible n choose k combinations
-        seq = combinations(list(range(total_features)), k)
+        seq = list(combinations(list(range(total_features)), k))
 
         buf = ''
-        for pattern in tqdm(seq, total=nck(total_features, k), desc='Running Big Dataset'):
+        for pattern in tqdm(seq, desc='Running Big Dataset'):
             # get a subset of the data
             sub_data = data[:, pattern]
 
@@ -350,11 +351,11 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         log.write(buf)
         f.write(buf)
 
+
 # run small dataset
 X, Y, header = load_dataset('small', scale=False)
-brute_force_leave_one_out([2], X, Y, 'log_small', 'small_')
+# brute_force_leave_one_out([4], X, Y, 'log_small', 'small_')
 
 # repeat for large dataset
 # X, Y, header = load_dataset('big', scale=False)
-# brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
-
+brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
