@@ -54,7 +54,7 @@ def load_dataset(small, verbose=True, scale=True):
 
     df = source_df.drop(source_df.columns[to_drop], axis=1)
 
-    print(df[pd.isnull(df).any(axis=1)])
+    # print(df[pd.isnull(df).any(axis=1)])
 
     label_index = 1  # this is from source
     print("Loaded in data, number of points =", df.shape[0])
@@ -354,8 +354,8 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
 
 # run small dataset
 X, Y, header = load_dataset('small', scale=False)
-# brute_force_leave_one_out([4], X, Y, 'log_small', 'small_')
+brute_force_leave_one_out([2], X, Y, 'log_small', 'small_')
 
 # repeat for large dataset
 # X, Y, header = load_dataset('big', scale=False)
-brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
+# brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
