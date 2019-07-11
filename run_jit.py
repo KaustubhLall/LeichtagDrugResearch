@@ -1,11 +1,7 @@
 import itertools
-import operator as op
 from copy import deepcopy
-from functools import reduce
 from itertools import combinations
-from multiprocessing.pool import Pool
-from queue import Queue
-from threading import Thread
+
 # import keras
 import numpy as np
 import pandas as pd
@@ -17,75 +13,32 @@ import pandas as pd
 from pandas import DataFrame
 from scipy.stats import pearsonr
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import KFold
+from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.model_selection import LeaveOneOut
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from tqdm import tqdm as tqdm
+from numba import jit
 
-n_thread = 12
+def nck(n, k):
+    import operator as op
+    from functools import reduce
 
-
-class Worker(Thread):
-    """ Thread executing tasks from a given tasks queue """
-
-    def __init__(self, tasks):
-        Thread.__init__(self)
-        self.tasks = tasks
-        self.daemon = True
-        self.start()
-
-    def run(self):
-        while True:
-            func, args, kargs = self.tasks.get()
-            try:
-                ret = func(*args, **kargs)
-            except Exception as e:
-                # An exception happened in this thread
-                print(e)
-            finally:
-                # Mark this task as done, whether an exception happened or not
-                self.tasks.task_done()
-            return ret
-
-
-class ThreadPool:
-    """ Pool of threads consuming tasks from a queue """
-
-    def __init__(self, num_threads):
-        self.tasks = Queue(num_threads)
-        for _ in range(num_threads):
-            Worker(self.tasks)
-
-    def add_task(self, func, *args, **kargs):
-        """ Add a task to the queue """
-        self.tasks.put((func, args, kargs))
-
-    def map(self, func, args_list, **kwargs):
-        """ Add a list of tasks to the queue """
-        for args in args_list:
-            self.add_task(func, args, **kwargs)
-
-    def wait_completion(self):
-        """ Wait for completion of all the tasks in the queue """
-        self.tasks.join()
-
-
-def nck(n, r):
-    r = min(r, n - r)
-    numer = reduce(op.mul, range(n, n - r, -1), 1)
-    denom = reduce(op.mul, range(1, r + 1), 1)
-    return numer / denom
+    def ncr(n, r):
+        r = min(r, n - r)
+        numer = reduce(op.mul, range(n, n - r, -1), 1)
+        denom = reduce(op.mul, range(1, r + 1), 1)
+        return numer / denom
 
 
 def load_dataset(small, verbose=True, scale=True):
     """
     Loads in the wine data described from the disk.
-
-    :param small:       the desired dataset.
-    :param verbose:     if true, print summary of data.
-    :param scale:     if true, scale the data.
-
+    
+    :param small:       the desired dataset. 
+    :param verbose:     if true, print summary of data. 
+    :param scale:     if true, scale the data. 
+    
     :return:        X, Y, trainX, trainY, testX, testY
     """
 
@@ -111,7 +64,7 @@ def load_dataset(small, verbose=True, scale=True):
 
     header = np.array(df.columns)
 
-    # print summary
+    # print summary   
     if verbose:
         print('''
             Data Shape    : %s
@@ -125,14 +78,14 @@ def load_dataset(small, verbose=True, scale=True):
 
     return X, Y, header
 
-
+@jit
 def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
     """
     Trains a decision tree from the provided data.
-
-    :param X:   Data to train decision tree model.
+    
+    :param X:   Data to train decision tree model. 
     :param Y:   Labels to train decision tree model.
-
+    
     :return:    trained model
     """
     train_acc = 0
@@ -147,6 +100,7 @@ def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
     return clf, train_acc
 
 
+#
 # def train_nn(X, Y, testX, testY, n_outputs=2, n_epochs=32, lr=1e-4, plot=True):
 #     # change labels to one hot encoding
 #     temp_Y = np.zeros((len(Y), 2))
@@ -209,8 +163,9 @@ def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
 #     print(int(np.sum([K.count_params(p) for p in set(model.trainable_weights)])))
 #
 #     return model, scores[1]
+#
 
-
+@jit
 def train_rfw(X, Y, n_estimators=100, bootstrap=False, criterion='gini'):
     """
     Trains a random forest model from the provided data.
@@ -221,7 +176,7 @@ def train_rfw(X, Y, n_estimators=100, bootstrap=False, criterion='gini'):
     :return:    trained model
     """
     train_acc = 0
-    clf = RandomForestClassifier(n_estimators=n_estimators, bootstrap=bootstrap, criterion=criterion)
+    clf = RandomForestClassifier(n_jobs=-1, n_estimators=n_estimators, bootstrap=bootstrap, criterion=criterion)
     clf.fit(X, Y)
 
     # predict and test model
@@ -229,7 +184,7 @@ def train_rfw(X, Y, n_estimators=100, bootstrap=False, criterion='gini'):
 
     return clf, train_acc
 
-
+@jit
 def test_model(model, testX, testY):
     """
     Finds the test (validation or hold out) score of any model with a .predict function.
@@ -252,9 +207,9 @@ def test_model(model, testX, testY):
 def dropcols(data, cols):
     """
     Drop columns from R^2 matrix as np array.
-    :param data:
-    :param cols:
-    :return:
+    :param data: 
+    :param cols: 
+    :return: 
     """
     data = deepcopy(data)
     assert isinstance(cols, list)
@@ -265,7 +220,7 @@ def dropcols(data, cols):
 
     return data[:, keep]
 
-
+@jit
 def dt_lo(data, labels, **kwargs):
     lo = LeaveOneOut()
 
@@ -282,7 +237,7 @@ def dt_lo(data, labels, **kwargs):
 
     return score
 
-
+@jit
 def rf_lo(data, labels, **kwargs):
     lo = LeaveOneOut()
 
@@ -299,7 +254,7 @@ def rf_lo(data, labels, **kwargs):
 
     return score
 
-
+@jit
 def dt_xval(data, labels, **kwargs):
     kf = KFold(n_splits=5, shuffle=True)
 
@@ -316,7 +271,7 @@ def dt_xval(data, labels, **kwargs):
 
     return score
 
-
+@jit
 def rf_xval(data, labels, **kwargs):
     kf = KFold(n_splits=5, shuffle=True)
 
@@ -333,80 +288,37 @@ def rf_xval(data, labels, **kwargs):
 
     return score
 
-
-def async_loo(pattern, data, labels, log, f):
-    """Function to map to the sequence to parallelize classifiers."""
-    # get a subset of the data
-    sub_data = data[:, pattern]
-
-    # run the classifiers using hold one out to report score
-    res_dt = dt_lo(sub_data, labels)
-    res_rf = rf_lo(sub_data, labels)
-
-    # write results to file
-    s = '%s,%s,'
-    s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
-    s += '\n'
-    # print(s, file=log)
-    # f.write(s)
-
-    return s
-
-
-def async_xval(pattern, data, labels, log, f):
-    # get a subset of the data
-    sub_data = data[:, pattern]
-
-    # run the classifiers using k fold xval to report the score
-    res_dt = dt_xval(sub_data, labels)
-    res_rf = rf_xval(sub_data, labels)
-
-    # write results to file
-    s = '%s,%s,'
-    s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
-    s += '\n'
-    # print(s, file=log)
-    # f.write(s)
-
-    return s
-
-
+run.py
 def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_hoo', pref=''):
     total_features = len(data[0])  # total number of features in the dataset
     log = open(logfile, 'w')
-
     for k in num_features:
         f = open(pref + 'hoo_res%d' % k, 'w')
 
         # for every possibly n choose k combinations
         seq = list(combinations(list(range(total_features)), k))
 
-        kwargs = {
-            'data': data,
-            'labels': labels,
-            'log': log,
-            'f': f
-        }
+        buf = ''
+        # test the pattern of classifiers
+        for pattern in tqdm(seq, desc='Running Small Dataset'):
+            # get a subset of the data
+            sub_data = data[:, pattern]
 
-        # worker pool here
-        pool = ThreadPool(n_thread)
-        res = pool.map(async_loo, seq, **kwargs)
+            # run the classifiers using hold one out to report score
+            res_dt = dt_lo(sub_data, labels)
+            res_rf = rf_lo(sub_data, labels)
 
-        log.write(res)
-        f.write(res)
+            # write results to file
+            s = '%s,%s,'
+            s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
+            s += '\n'
+            # print(s, file=log)
+            # f.write(s)
 
-        # for multiprocessing
-        # pool = Pool()
-        # pool.map(async_loo, seq)
+            buf += s
 
-
-def wrap_args(seq, args):
-    l = []
-
-    for s in seq:
-        l.append(tuple(list(s) + list(args)))
-
-    return l
+        log.write(buf)
+        f.write(buf)
 
 
 def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xval', pref=''):
@@ -419,27 +331,32 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         # for every possible n choose k combinations
         seq = list(combinations(list(range(total_features)), k))
 
-        kwargs = {
-            'data': data,
-            'labels': labels,
-            'log': log,
-            'f': f
-        }
+        buf = ''
+        for pattern in tqdm(seq, desc='Running Big Dataset'):
+            # get a subset of the data
+            sub_data = data[:, pattern]
 
-        pool = ThreadPool(num_threads=n_thread)
-        res = pool.map(async_xval, seq, **kwargs)
+            # run the classifiers using k fold xval to report the score
+            res_dt = dt_xval(sub_data, labels)
+            res_rf = rf_xval(sub_data, labels)
 
-        log.write(res)
-        f.write(res)
+            # write results to file
+            s = '%s,%s,'
+            s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
+            s += '\n'
+            # print(s, file=log)
+            # f.write(s)
+
+            buf += s
+
+        log.write(buf)
+        f.write(buf)
 
 
-if __name__ == '__main__':
-    # run small dataset
-    X, Y, header = load_dataset('small', scale=False)
-    # brute_force_leave_one_out([3, 4, 5], X, Y, 'log_small_parallel', 'small_parallel_')
-    brute_force_leave_one_out([2], X, Y, 'log_small_parallel', 'small_parallel_')
+# run small dataset
+X, Y, header = load_dataset('small', scale=False)
+# brute_force_leave_one_out([4], X, Y, 'log_small', 'small_')
 
-    # repeat for large dataset
-    X, Y, header = load_dataset('big', scale=False)
-    # brute_force_k_fold_x_val([5, 6, 7], X, Y, 'log_big_parallel_', 'big_parallel_')
-    # brute_force_k_fold_x_val([2], X, Y, 'log_big_parallel_', 'big_parallel_')
+# repeat for large dataset
+# X, Y, header = load_dataset('big', scale=False)
+brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
