@@ -23,7 +23,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from tqdm import tqdm as tqdm
 
-n_thread = 12
+n_thread = 64
 
 
 class Worker(Thread):
@@ -347,8 +347,8 @@ def async_loo(pattern, data, labels, log, f):
     s = '%s,%s,'
     s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
     s += '\n'
-    # print(s, file=log)
-    # f.write(s)
+    print(s, file=log)
+    f.write(s)
 
     return s
 
@@ -365,8 +365,8 @@ def async_xval(pattern, data, labels, log, f):
     s = '%s,%s,'
     s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
     s += '\n'
-    # print(s, file=log)
-    # f.write(s)
+    print(s, file=log)
+    f.write(s)
 
     return s
 
@@ -392,8 +392,8 @@ def brute_force_leave_one_out(num_features, data, labels, logfile='default_log_h
         pool = ThreadPool(n_thread)
         res = pool.map(async_loo, seq, **kwargs)
 
-        log.write(res)
-        f.write(res)
+        # log.write(res)
+        # f.write(res)
 
         # for multiprocessing
         # pool = Pool()
@@ -429,17 +429,17 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
         pool = ThreadPool(num_threads=n_thread)
         res = pool.map(async_xval, seq, **kwargs)
 
-        log.write(res)
-        f.write(res)
+        # log.write(res)
+        # f.write(res)
 
 
 if __name__ == '__main__':
     # run small dataset
     X, Y, header = load_dataset('small', scale=False)
     # brute_force_leave_one_out([3, 4, 5], X, Y, 'log_small_parallel', 'small_parallel_')
-    brute_force_leave_one_out([2], X, Y, 'log_small_parallel', 'small_parallel_')
+    # brute_force_leave_one_out([2], X, Y, 'log_small_parallel', 'small_parallel_')
 
     # repeat for large dataset
     X, Y, header = load_dataset('big', scale=False)
-    # brute_force_k_fold_x_val([5, 6, 7], X, Y, 'log_big_parallel_', 'big_parallel_')
+    brute_force_k_fold_x_val([5, 6, 7], X, Y, 'log_big_parallel_', 'big_parallel_')
     # brute_force_k_fold_x_val([2], X, Y, 'log_big_parallel_', 'big_parallel_')
