@@ -1,0 +1,31 @@
+Impressions:
+    indicators of physical bulk seem important.
+    charge is also important. 
+    
+    Together those two explain a lot of the dataset.
+    
+    Functional groups (? my chemistry isn't the best) and attachments like COOH/Acetyl help boost accuracy if the first two measures are in place.
+    
+Best features:
+    (not a set, "independently" the best)
+    molWeight, Complexity, molArea, nof_HBA, nof_COOH, a_heavy, nof_Rings, nof_COOH, molLogS, molLogP
+    
+Secondary best (supporting features):
+    molLogS, nof_negCharge, nof_acetyl, nof_NH2
+    
+    
+Best feature sets:
+    molWeight	molVolume	molLogP	    nof_Chirals	    C_R2
+    molWeight	molVolume	molLogP	    nof_HBD	        nof_PO4
+    molWeight	molVolume	molLogP	    a_heavy	        nof_SO3H
+    molWeight	molVolume	molLogS	    molPSA	        negCharge/Volume
+    molWeight	molVolume	molLogP     nof_Chirals 	C_R2
+    molWeight	molVolume	molLogP     nof_HBD	        nof_PO4
+    molWeight	molVolume	molLogP     a_heavy 	    nof_SO3H
+    molWeight	molVolume	molLogS     molPSA	        negCharge/Volume
+        ^           ^           ^           ^ ------------ ^   these dont always show up frequently, but work well with these combinations
+        |           |           |                                
+        |-----------|           both P and S are indistinguishable in effect on accuracy
+           having both helps?????
+           better scores than removing one
+           almost 95% correlation

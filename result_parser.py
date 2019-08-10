@@ -89,7 +89,7 @@ s = ''
 
 pref = 'big_'  # big_ or small_, prefix to save output files
 
-nfs = [3, 4, 5, 6]  # num features to try
+nfs = [4, 5]  # num features to try
 res_file_prefix = 'big_xval_res'  # small_res or big_xval_res, prefix to look for result files
 
 for nf in nfs:
