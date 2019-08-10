@@ -325,13 +325,15 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
     log = open(logfile, 'w')
 
     for k in num_features:
-        f = open(pref + 'xval_res%d' % k, 'w')
 
         # for every possible n choose k combinations
         seq = list(combinations(list(range(total_features)), k))
 
         buf = ''
+
         for pattern in tqdm(seq, desc='Running Big Dataset'):
+            f = open(pref + 'xval_res%d' % k, 'a')
+
             # get a subset of the data
             sub_data = data[:, pattern]
 
@@ -343,19 +345,23 @@ def brute_force_k_fold_x_val(num_features, data, labels, logfile='default_log_xv
             s = '%s,%s,'
             s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
             s += '\n'
-            # print(s, file=log)
-            # f.write(s)
-
+            print(s, file=log)
+            f.write(s)
+            f.close()
             buf += s
 
-        log.write(buf)
-        f.write(buf)
+        # log.write(buf)
+        # f.write(buf)
 
 
 # run small dataset
 X, Y, header = load_dataset('small', scale=False)
-brute_force_leave_one_out([2], X, Y, 'log_small', 'small_')
+# brute_force_leave_one_out([3], X, Y, 'log_small', 'small_')
+# brute_force_leave_one_out([4], X, Y, 'log_small', 'small_')
+# brute_force_leave_one_out([5], X, Y, 'log_small', 'small_')
 
 # repeat for large dataset
 # X, Y, header = load_dataset('big', scale=False)
-# brute_force_k_fold_x_val([3], X, Y, 'log_big', 'big_')
+# brute_force_k_fold_x_val([4], X, Y, 'log_big', 'big_')
+brute_force_k_fold_x_val([5], X, Y, 'log_big', 'big_')
+# brute_force_k_fold_x_val([6], X, Y, 'log_big', 'big_')

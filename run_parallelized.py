@@ -438,9 +438,9 @@ if __name__ == '__main__':
     # run small dataset
     X, Y, header = load_dataset('small', scale=False)
     # brute_force_leave_one_out([3, 4, 5], X, Y, 'log_small_parallel', 'small_parallel_')
-    brute_force_leave_one_out([2], X, Y, 'log_small_parallel', 'small_parallel_')
+    brute_force_leave_one_out([5], X, Y, 'log_small_parallel', 'small_parallel_')
 
     # repeat for large dataset
     X, Y, header = load_dataset('big', scale=False)
     # brute_force_k_fold_x_val([5, 6, 7], X, Y, 'log_big_parallel_', 'big_parallel_')
-    # brute_force_k_fold_x_val([2], X, Y, 'log_big_parallel_', 'big_parallel_')
+    # brute_force_k_fold_x_val([5], X, Y, 'log_big_parallel_', 'big_parallel_')
