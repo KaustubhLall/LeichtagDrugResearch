@@ -1,3 +1,12 @@
+Notes:
+    no class balancing during xval (cross validation)
+        Cross validation is 5 fold, with data divided into 5 equal sets. 4 are used to train and one is used to test. 
+        Test accuracy is recorded. Process is repeated four additional times, and average test accuracy is used as the score.
+    no class balancing during hold one out
+        Train on all but one, test on last. Count number of correct / size of dataset.
+        
+=======================> Big dataset <=======================
+
 Impressions:
     indicators of physical bulk seem important.
     charge is also important. 
@@ -29,3 +38,37 @@ Best feature sets:
            having both helps?????
            better scores than removing one
            almost 95% correlation
+           
+           
+           
+           
+           
+ =======================> small dataset <======================
+ 
+ Impressions:
+    indicators of physical bulk seem important.
+    charge is also important, less extent than big dataset
+    
+    Together those two explain a lot of the dataset.
+    
+    Functional groups (? my chemistry isn't the best) and attachments like COOH/Acetyl help boost accuracy if the first two measures are in place.
+    
+Best features:
+      molWeight, Complexity, molArea, nof_HBA, nof_COOH, a_heavy, nof_COOH
+      
+Secondary best (supporting features):
+    nof_negCharge, nof_Rings, nof_atoms, nof_chirals
+    
+Best feature sets:
+
+molWeight	molVolume	molArea	Complexity                  < best feature set by far
+molWeight	molVolume	nof_HBA	Complexity
+molWeight	molLogP	    nof_HBA	Complexity
+molWeight	molLogS	    nof_HBA	Complexity
+
+molWeight	molVolume	molArea	    Complexity              < repeated to highlight
+molWeight	molVolume	nof_Chirals	nof_posCharge
+molWeight	molVolume	nof_Chirals	a_heavy
+molWeight	molVolume	nof_Chirals	C_R2
+
+           

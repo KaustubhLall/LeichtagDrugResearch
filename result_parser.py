@@ -87,10 +87,10 @@ def get_counts(df):
 
 s = ''
 
-pref = 'big_'  # big_ or small_, prefix to save output files
+pref = 'small_'  # big_ or small_, prefix to save output files
 
-nfs = [4, 5]  # num features to try
-res_file_prefix = 'big_xval_res'  # small_res or big_xval_res, prefix to look for result files
+nfs = [4]  # num features to try
+res_file_prefix = 'small_hoo_res'  # small_res or big_xval_res, prefix to look for result files
 
 for nf in nfs:
     try:

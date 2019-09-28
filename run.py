@@ -1,4 +1,4 @@
-import itertools
+from copy import deepcopy
 from copy import deepcopy
 from itertools import combinations
 
@@ -10,10 +10,8 @@ import pandas as pd
 # from keras.models import Sequential
 # from keras.regularizers import l2
 # from matplotlib import pyplot as plt
-from pandas import DataFrame
-from scipy.stats import pearsonr
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV, KFold
+from sklearn.model_selection import KFold
 from sklearn.model_selection import LeaveOneOut
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
