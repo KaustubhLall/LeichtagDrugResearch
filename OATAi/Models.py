@@ -66,14 +66,31 @@ class ModelXVal:
         self.num_splits = 5
 
     def dt_xval(self, data, labels, **kwargs):
+        """
+        Runs the random forest classifier with the given parameters in kwargs and reports the cross validation accuracy.
+
+        :param data: input data to run.
+        :type data: R^2 numpy array.
+        :param labels: input labels to run.
+        :type labels:  R^1 numpy array.
+        :param kwargs: Arguments (optional) for the RFW classifier.
+        :type kwargs: dict
+        :return: average accuracy over all folds in cross validation
+        :rtype: float
+        """
         kf = KFold(n_splits=self.num_splits, shuffle=True)
 
         ns = kf.get_n_splits(data)
         acc = 0
 
-        for traini, testi in kf.split(data):
-            data_train, data_test = data[traini], data[testi]
-            labels_train, labels_test = labels[traini], labels[testi]
+        # for each fold in the xval splits
+        for train_index, test_index in kf.split(data):
+            # get the data
+
+            data_train, data_test = data[train_index], data[test_index]
+            labels_train, labels_test = labels[train_index], labels[test_index]
+            # train the model and test it
+
             model, _ = train_dt(data_train, labels_train, **kwargs)
             acc += test_model(model, data_test, labels_test)
 
@@ -82,14 +99,30 @@ class ModelXVal:
         return score
 
     def rf_xval(self, data, labels, **kwargs):
+        """
+        Runs the random forest classifier with the given parameters in kwargs and reports the cross validation accuracy.
+
+        :param data: input data to run.
+        :type data: R^2 numpy array.
+        :param labels: input labels to run.
+        :type labels:  R^1 numpy array.
+        :param kwargs: Arguments (optional) for the RFW classifier.
+        :type kwargs: dict
+        :return: average accuracy over all folds in cross validation
+        :rtype: float
+        """
         kf = KFold(n_splits=self.num_splits, shuffle=True)
 
         ns = kf.get_n_splits(data)
         acc = 0
 
-        for traini, testi in kf.split(data):
-            data_train, data_test = data[traini], data[testi]
-            labels_train, labels_test = labels[traini], labels[testi]
+        # for each fold in the xval splits
+        for train_index, test_index in kf.split(data):
+            # get the data
+            data_train, data_test = data[train_index], data[test_index]
+            labels_train, labels_test = labels[train_index], labels[test_index]
+
+            # train the model and test it
             model, _ = train_rfw(data_train, labels_train, **kwargs)
             acc += test_model(model, data_test, labels_test)
 
