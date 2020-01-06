@@ -76,27 +76,6 @@ def load_dataset(small, verbose=True, scale=True):
     return X, Y, header
 
 
-def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
-    """
-    Trains a decision tree from the provided data.
-    
-    :param X:   Data to train decision tree model. 
-    :param Y:   Labels to train decision tree model.
-    
-    :return:    trained model
-    """
-    train_acc = 0
-
-    # make and fit model
-    clf = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth, min_samples_leaf=min_samples_leaf)
-    clf.fit(X, Y)
-
-    # predict and test model
-    train_acc += clf.score(X, Y)
-
-    return clf, train_acc
-
-
 #
 # def train_nn(X, Y, testX, testY, n_outputs=2, n_epochs=32, lr=1e-4, plot=True):
 #     # change labels to one hot encoding
@@ -161,6 +140,28 @@ def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
 #
 #     return model, scores[1]
 #
+
+def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
+    """
+    Trains a decision tree from the provided data.
+    
+    :param X:   Data to train decision tree model. 
+    :param Y:   Labels to train decision tree model.
+    
+    :return:    trained model
+    """
+    train_acc = 0
+
+    # make and fit model
+    clf = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth, min_samples_leaf=min_samples_leaf)
+    clf.fit(X, Y)
+
+    # predict and test model
+    train_acc += clf.score(X, Y)
+
+    return clf, train_acc
+
+
 
 def train_rfw(X, Y, n_estimators=100, bootstrap=False, criterion='gini'):
     """
