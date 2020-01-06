@@ -1,6 +1,9 @@
+from itertools import combinations
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier
+from tqdm import tqdm
 
 
 def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
@@ -72,7 +75,7 @@ class ModelXVal:
         :param data: input data to run.
         :type data: R^2 numpy array.
         :param labels: input labels to run.
-        :type labels:  R^1 numpy array.
+        :type labels: R^1 numpy array.
         :param kwargs: Arguments (optional) for the RFW classifier.
         :type kwargs: dict
         :return: average accuracy over all folds in cross validation
@@ -89,8 +92,8 @@ class ModelXVal:
 
             data_train, data_test = data[train_index], data[test_index]
             labels_train, labels_test = labels[train_index], labels[test_index]
-            # train the model and test it
 
+            # train the model and test it
             model, _ = train_dt(data_train, labels_train, **kwargs)
             acc += test_model(model, data_test, labels_test)
 
@@ -105,7 +108,7 @@ class ModelXVal:
         :param data: input data to run.
         :type data: R^2 numpy array.
         :param labels: input labels to run.
-        :type labels:  R^1 numpy array.
+        :type labels: R^1 numpy array.
         :param kwargs: Arguments (optional) for the RFW classifier.
         :type kwargs: dict
         :return: average accuracy over all folds in cross validation
@@ -129,3 +132,34 @@ class ModelXVal:
         score = acc / ns
 
         return score
+
+    def brute_force_k_fold_x_val(self, num_features, data, labels, logfile='default_log_xval', pref=''):
+        total_features = len(data[0])
+        log = open(logfile, 'w')
+
+        for k in num_features:
+
+            # for every possible n choose k combinations
+            seq = list(combinations(list(range(total_features)), k))
+
+            buf = ''
+
+            for pattern in tqdm(seq, desc='Running Big Dataset'):
+                f = open(pref + 'xval_res%d' % k, 'a')
+
+                # get a subset of the data
+                sub_data = data[:, pattern]
+
+                # run the classifiers using k fold xval to report the score
+                res_dt = self.dt_xval(sub_data, labels)
+                res_rf = self.rf_xval(sub_data, labels)
+
+                # write results to file
+                s = '%s,%s,'
+                # todo fetch header.
+                s = s % tuple([res_rf, res_dt]) + ','.join(list(header[list(pattern)]))
+                s += '\n'
+                print(s, file=log)
+                f.write(s)
+                f.close()
+                buf += s
