@@ -1,0 +1,60 @@
+==> big_5_feature_above70dt_counts.txt <==
+Top 5 : [('molWeight', 15047), ('Complexity', 3111), ('PSA/Area', 2844), ('nof_HBA', 2603), ('molArea', 2571)]
+    Top 10 : [('molWeight', 15047), ('Complexity', 3111), ('PSA/Area', 2844), ('nof_HBA', 2603), ('molArea', 2571), ('molPSA', 2342), ('C_R2', 2053), ('nof_SH', 2018), ('nof_PO4', 2013), ('nof_posCharge', 2007)]
+    
+    All counts: [('molWeight', 15047), ('Complexity', 3111), ('PSA/Area', 2844), ('nof_HBA', 2603), ('molArea', 2571), ('molPSA', 2342), ('C_R2', 2053), ('nof_SH', 2018), ('nof_PO4', 2013), ('nof_posCharge', 2007), ('C_R1', 2004), ('nof_acetyl', 2000), ('nof_SO3H', 1997), ('nof_Rings', 1981), ('nof_OH', 1955), ('posCharge/Volume', 1942), ('nof_Atoms', 1941), ('nof_COOH', 1932), ('a_heavy', 1926), ('negCharge/Volume', 1926), ('molLogP', 1920), ('nof_Fragments', 1900), ('molVolume', 1896), ('nof_NH2', 1894), ('nof_HBD', 1877), ('C_sp3', 1870), ('nof_negCharge', 1802), ('molCharge_total', 1753), ('nof_Chirals', 1709), ('nof_RotB', 1519), ('C_R0', 1457), ('molLogS', 1340)]
+    
+==> big_5_feature_above70rfw_counts.txt <==
+Top 5 : [('molWeight', 25388), ('molVolume', 4182), ('molArea', 3949), ('Complexity', 3799), ('PSA/Area', 3713)]
+    Top 10 : [('molWeight', 25388), ('molVolume', 4182), ('molArea', 3949), ('Complexity', 3799), ('PSA/Area', 3713), ('nof_Rings', 3547), ('nof_HBA', 3500), ('a_heavy', 3470), ('nof_COOH', 3457), ('posCharge/Volume', 3446)]
+    
+    All counts: [('molWeight', 25388), ('molVolume', 4182), ('molArea', 3949), ('Complexity', 3799), ('PSA/Area', 3713), ('nof_Rings', 3547), ('nof_HBA', 3500), ('a_heavy', 3470), ('nof_COOH', 3457), ('posCharge/Volume', 3446), ('nof_negCharge', 3430), ('molPSA', 3398), ('molCharge_total', 3385), ('molLogP', 3377), ('nof_NH2', 3340), ('C_R2', 3319), ('nof_RotB', 3312), ('nof_Fragments', 3310), ('nof_OH', 3308), ('nof_Atoms', 3302), ('nof_SH', 3293), ('nof_SO3H', 3288), ('negCharge/Volume', 3283), ('nof_PO4', 3283), ('C_R0', 3216), ('molLogS', 3213), ('nof_posCharge', 3209), ('nof_HBD', 3144), ('nof_Chirals', 3097), ('C_R1', 3094), ('C_sp3', 2940), ('nof_acetyl', 2863)]
+    
+==> big_5_feature_above75dt_counts.txt <==
+Top 5 : [('molWeight', 6056), ('Complexity', 1929), ('PSA/Area', 1202), ('nof_HBA', 1158), ('molArea', 1046)]
+    Top 10 : [('molWeight', 6056), ('Complexity', 1929), ('PSA/Area', 1202), ('nof_HBA', 1158), ('molArea', 1046), ('molPSA', 892), ('C_R1', 848), ('nof_SH', 844), ('nof_posCharge', 820), ('nof_Rings', 816)]
+    
+    All counts: [('molWeight', 6056), ('Complexity', 1929), ('PSA/Area', 1202), ('nof_HBA', 1158), ('molArea', 1046), ('molPSA', 892), ('C_R1', 848), ('nof_SH', 844), ('nof_posCharge', 820), ('nof_Rings', 816), ('C_R2', 811), ('nof_SO3H', 798), ('nof_acetyl', 793), ('nof_Fragments', 792), ('negCharge/Volume', 787), ('posCharge/Volume', 780), ('nof_OH', 780), ('nof_PO4', 765), ('nof_Atoms', 744), ('nof_COOH', 743), ('C_sp3', 736), ('nof_HBD', 733), ('nof_NH2', 700), ('a_heavy', 671), ('nof_Chirals', 665), ('nof_negCharge', 657), ('molCharge_total', 628), ('molLogP', 548), ('molVolume', 526), ('nof_RotB', 505), ('molLogS', 454), ('C_R0', 453)]
+    
+==> big_5_feature_above75rfw_counts.txt <==
+Top 5 : [('molWeight', 15554), ('Complexity', 2866), ('molArea', 2842), ('molVolume', 2531), ('a_heavy', 2295)]
+    Top 10 : [('molWeight', 15554), ('Complexity', 2866), ('molArea', 2842), ('molVolume', 2531), ('a_heavy', 2295), ('nof_Rings', 2291), ('nof_COOH', 2273), ('nof_negCharge', 2227), ('nof_HBA', 2220), ('posCharge/Volume', 2211)]
+    
+    All counts: [('molWeight', 15554), ('Complexity', 2866), ('molArea', 2842), ('molVolume', 2531), ('a_heavy', 2295), ('nof_Rings', 2291), ('nof_COOH', 2273), ('nof_negCharge', 2227), ('nof_HBA', 2220), ('posCharge/Volume', 2211), ('molCharge_total', 2203), ('PSA/Area', 2171), ('nof_PO4', 2042), ('C_R2', 2036), ('nof_SH', 2036), ('nof_NH2', 2023), ('nof_RotB', 2004), ('nof_SO3H', 2001), ('nof_OH', 2001), ('negCharge/Volume', 1966), ('nof_posCharge', 1940), ('nof_Atoms', 1883), ('molPSA', 1872), ('nof_Fragments', 1859), ('nof_Chirals', 1791), ('nof_HBD', 1761), ('C_R1', 1760), ('molLogS', 1703), ('C_R0', 1653), ('nof_acetyl', 1519), ('C_sp3', 1409), ('molLogP', 1312)]
+    
+==> big_5_feature_above80dt_counts.txt <==
+Top 5 : [('molWeight', 980), ('Complexity', 589), ('nof_HBA', 213), ('molArea', 209), ('C_R1', 140)]
+    Top 10 : [('molWeight', 980), ('Complexity', 589), ('nof_HBA', 213), ('molArea', 209), ('C_R1', 140), ('posCharge/Volume', 137), ('PSA/Area', 131), ('negCharge/Volume', 131), ('nof_SH', 126), ('nof_posCharge', 125)]
+    
+    All counts: [('molWeight', 980), ('Complexity', 589), ('nof_HBA', 213), ('molArea', 209), ('C_R1', 140), ('posCharge/Volume', 137), ('PSA/Area', 131), ('negCharge/Volume', 131), ('nof_SH', 126), ('nof_posCharge', 125), ('nof_COOH', 125), ('nof_SO3H', 124), ('nof_PO4', 123), ('nof_Rings', 121), ('nof_acetyl', 121), ('nof_HBD', 118), ('nof_Fragments', 117), ('C_sp3', 113), ('nof_OH', 113), ('C_R2', 112), ('nof_Atoms', 105), ('molPSA', 104), ('nof_NH2', 101), ('nof_Chirals', 100), ('nof_negCharge', 100), ('molCharge_total', 95), ('a_heavy', 89), ('nof_RotB', 65), ('C_R0', 60), ('molLogS', 54), ('molVolume', 51), ('molLogP', 33)]
+    
+==> big_5_feature_above80rfw_counts.txt <==
+Top 5 : [('molWeight', 4082), ('Complexity', 1036), ('molArea', 903), ('nof_COOH', 794), ('nof_negCharge', 691)]
+    Top 10 : [('molWeight', 4082), ('Complexity', 1036), ('molArea', 903), ('nof_COOH', 794), ('nof_negCharge', 691), ('nof_Rings', 666), ('posCharge/Volume', 649), ('nof_HBA', 634), ('molCharge_total', 633), ('molVolume', 607)]
+    
+    All counts: [('molWeight', 4082), ('Complexity', 1036), ('molArea', 903), ('nof_COOH', 794), ('nof_negCharge', 691), ('nof_Rings', 666), ('posCharge/Volume', 649), ('nof_HBA', 634), ('molCharge_total', 633), ('molVolume', 607), ('nof_SH', 583), ('a_heavy', 564), ('nof_PO4', 560), ('nof_RotB', 556), ('C_R2', 553), ('nof_SO3H', 548), ('nof_OH', 524), ('nof_NH2', 510), ('nof_posCharge', 489), ('negCharge/Volume', 469), ('PSA/Area', 463), ('nof_Chirals', 457), ('molPSA', 427), ('nof_HBD', 414), ('nof_Atoms', 407), ('nof_Fragments', 405), ('molLogS', 393), ('C_R1', 374), ('nof_acetyl', 339), ('C_R0', 280), ('C_sp3', 228), ('molLogP', 197)]
+    
+==> big_5_feature_above825dt_counts.txt <==
+Top 5 : [('molWeight', 456), ('Complexity', 318), ('nof_HBA', 121), ('molArea', 100), ('C_R1', 67)]
+    Top 10 : [('molWeight', 456), ('Complexity', 318), ('nof_HBA', 121), ('molArea', 100), ('C_R1', 67), ('negCharge/Volume', 65), ('nof_Rings', 63), ('posCharge/Volume', 63), ('nof_SO3H', 55), ('nof_COOH', 55)]
+    
+    All counts: [('molWeight', 456), ('Complexity', 318), ('nof_HBA', 121), ('molArea', 100), ('C_R1', 67), ('negCharge/Volume', 65), ('nof_Rings', 63), ('posCharge/Volume', 63), ('nof_SO3H', 55), ('nof_COOH', 55), ('nof_HBD', 53), ('C_sp3', 53), ('nof_negCharge', 52), ('nof_SH', 52), ('PSA/Area', 51), ('molCharge_total', 51), ('nof_posCharge', 51), ('nof_Chirals', 50), ('nof_Fragments', 50), ('nof_PO4', 48), ('nof_NH2', 48), ('nof_OH', 48), ('molPSA', 47), ('nof_acetyl', 47), ('C_R2', 46), ('nof_Atoms', 40), ('a_heavy', 33), ('molVolume', 26), ('nof_RotB', 26), ('C_R0', 25), ('molLogS', 21), ('molLogP', 14)]
+    
+==> big_5_feature_above825rfw_counts.txt <==
+Top 5 : [('molWeight', 2031), ('Complexity', 595), ('nof_COOH', 440), ('molArea', 425), ('nof_negCharge', 386)]
+    Top 10 : [('molWeight', 2031), ('Complexity', 595), ('nof_COOH', 440), ('molArea', 425), ('nof_negCharge', 386), ('nof_HBA', 351), ('molCharge_total', 345), ('nof_Rings', 331), ('posCharge/Volume', 324), ('C_R2', 295)]
+    
+    All counts: [('molWeight', 2031), ('Complexity', 595), ('nof_COOH', 440), ('molArea', 425), ('nof_negCharge', 386), ('nof_HBA', 351), ('molCharge_total', 345), ('nof_Rings', 331), ('posCharge/Volume', 324), ('C_R2', 295), ('nof_SH', 282), ('molVolume', 277), ('nof_RotB', 270), ('a_heavy', 268), ('nof_SO3H', 265), ('nof_PO4', 259), ('nof_NH2', 255), ('nof_OH', 246), ('nof_Chirals', 240), ('nof_posCharge', 235), ('negCharge/Volume', 231), ('PSA/Area', 214), ('molPSA', 199), ('molLogS', 196), ('nof_HBD', 194), ('nof_Fragments', 192), ('C_R1', 176), ('nof_Atoms', 171), ('nof_acetyl', 161), ('C_R0', 129), ('C_sp3', 110), ('molLogP', 87)]
+    
+==> big_5_feature_above85dt_counts.txt <==
+Top 5 : [('molWeight', 206), ('Complexity', 161), ('nof_HBA', 48), ('molArea', 46), ('C_R1', 32)]
+    Top 10 : [('molWeight', 206), ('Complexity', 161), ('nof_HBA', 48), ('molArea', 46), ('C_R1', 32), ('nof_negCharge', 30), ('negCharge/Volume', 30), ('nof_Rings', 29), ('nof_Chirals', 27), ('molCharge_total', 26)]
+    
+    All counts: [('molWeight', 206), ('Complexity', 161), ('nof_HBA', 48), ('molArea', 46), ('C_R1', 32), ('nof_negCharge', 30), ('negCharge/Volume', 30), ('nof_Rings', 29), ('nof_Chirals', 27), ('molCharge_total', 26), ('nof_COOH', 26), ('nof_posCharge', 25), ('nof_SO3H', 25), ('posCharge/Volume', 24), ('nof_NH2', 24), ('nof_acetyl', 24), ('nof_HBD', 22), ('C_sp3', 22), ('nof_OH', 22), ('nof_SH', 21), ('nof_Fragments', 20), ('molPSA', 18), ('PSA/Area', 18), ('nof_Atoms', 18), ('nof_PO4', 18), ('C_R2', 16), ('C_R0', 14), ('a_heavy', 11), ('molLogS', 10), ('nof_RotB', 9), ('molVolume', 6), ('molLogP', 2)]
+    
+==> big_5_feature_above85rfw_counts.txt <==
+Top 5 : [('molWeight', 1066), ('Complexity', 349), ('nof_COOH', 274), ('nof_negCharge', 235), ('molArea', 212)]
+    Top 10 : [('molWeight', 1066), ('Complexity', 349), ('nof_COOH', 274), ('nof_negCharge', 235), ('molArea', 212), ('molCharge_total', 201), ('nof_HBA', 198), ('nof_Rings', 171), ('posCharge/Volume', 165), ('nof_SH', 164)]
+    
+    All counts: [('molWeight', 1066), ('Complexity', 349), ('nof_COOH', 274), ('nof_negCharge', 235), ('molArea', 212), ('molCharge_total', 201), ('nof_HBA', 198), ('nof_Rings', 171), ('posCharge/Volume', 165), ('nof_SH', 164), ('C_R2', 154), ('nof_NH2', 149), ('nof_RotB', 143), ('nof_SO3H', 138), ('nof_PO4', 131), ('nof_OH', 128), ('nof_Chirals', 122), ('nof_posCharge', 122), ('negCharge/Volume', 122), ('molVolume', 120), ('PSA/Area', 114), ('a_heavy', 113), ('molPSA', 101), ('nof_HBD', 92), ('nof_Fragments', 92), ('molLogS', 91), ('C_R1', 84), ('nof_acetyl', 76), ('nof_Atoms', 72), ('C_R0', 58), ('C_sp3', 43), ('molLogP', 40)]
+    

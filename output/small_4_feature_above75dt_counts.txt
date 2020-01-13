@@ -1,0 +1,5 @@
+Top 5 : [('Complexity', 1562), ('molWeight', 1075), ('molArea', 836), ('molLogS', 614), ('a_heavy', 527)]
+    Top 10 : [('Complexity', 1562), ('molWeight', 1075), ('molArea', 836), ('molLogS', 614), ('a_heavy', 527), ('nof_HBD', 486), ('molPSA', 441), ('molVolume', 421), ('nof_COOH', 421), ('nof_Atoms', 400)]
+    
+    All counts: [('Complexity', 1562), ('molWeight', 1075), ('molArea', 836), ('molLogS', 614), ('a_heavy', 527), ('nof_HBD', 486), ('molPSA', 441), ('molVolume', 421), ('nof_COOH', 421), ('nof_Atoms', 400), ('C_R0', 400), ('nof_Chirals', 384), ('posCharge/Volume', 382), ('nof_Fragments', 382), ('nof_NH2', 382), ('nof_Rings', 381), ('C_R2', 378), ('nof_RotB', 372), ('nof_SH', 372), ('nof_PO4', 370), ('negCharge/Volume', 367), ('nof_SO3H', 365), ('nof_OH', 362), ('nof_acetyl', 359), ('C_R1', 358), ('nof_posCharge', 355), ('molCharge_total', 313), ('nof_negCharge', 313), ('molLogP', 305), ('C_sp3', 303), ('nof_HBA', 269), ('PSA/Area', 5)]
+    
