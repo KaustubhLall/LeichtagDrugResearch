@@ -66,7 +66,7 @@ def test_model(model, test_x, test_y):
 
 class ModelXVal:
     def __init__(self):
-        self.num_splits = 5
+        self.num_splits = 10
 
     def dt_xval(self, data, labels, **kwargs):
         """

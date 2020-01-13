@@ -162,7 +162,6 @@ def train_dt(X, Y, max_depth=7, criterion='entropy', min_samples_leaf=3):
     return clf, train_acc
 
 
-
 def train_rfw(X, Y, n_estimators=100, bootstrap=False, criterion='gini'):
     """
     Trains a random forest model from the provided data.
